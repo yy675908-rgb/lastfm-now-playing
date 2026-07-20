@@ -1,17 +1,14 @@
 {
   "status": "ok",
   "user": "yy675908",
-  "updated_at": "2026-07-20T10:27:05.962610+00:00",
-  "is_playing": false,
-  "track": "你的谎 (You Lie)",
-  "artist": "徐梓淳",
-  "album": "",
-  "image": "https://lastfm.freetls.fastly.net/i/u/64s/c6f59c1e5e7240a4c0d427abd71f3dbb.jpg",
-  "url": "https://www.last.fm/music/%E5%BE%90%E6%A2%93%E6%B7%B3/_/%E4%BD%A0%E7%9A%84%E8%B0%8E+(You+Lie)",
-  "published": "9 minutes ago",
-  "source": "https://www.last.fm/user/yy675908",
-  "source_type": "lastfm_profile",
-  "warnings": [
-    "api: LASTFM_API_KEY is not configured; live status may be delayed"
-  ]
+  "updated_at": "2026-07-20T10:30:07.990212+00:00",
+  "is_playing": true,
+  "track": "半壶纱",
+  "artist": "刘珂矣",
+  "album": "半壶纱",
+  "image": "https://lastfm.freetls.fastly.net/i/u/300x300/3f7217b1846cec51371a749994e8f914.jpg",
+  "url": "https://www.last.fm/music/%E5%88%98%E7%8F%82%E7%9F%A3/_/%E5%8D%8A%E5%A3%B6%E7%BA%B1",
+  "published": "Scrobbling now",
+  "source": "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=yy675908&api_key=3145cab326405127b34e49576c7ca791&format=json&limit=1&extended=1",
+  "source_type": "lastfm_api"
 }
