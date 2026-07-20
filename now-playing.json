@@ -1,14 +1,17 @@
 {
   "status": "ok",
   "user": "yy675908",
-  "updated_at": "2026-07-20T10:25:08.931231+00:00",
+  "updated_at": "2026-07-20T10:27:05.962610+00:00",
   "is_playing": false,
   "track": "你的谎 (You Lie)",
   "artist": "徐梓淳",
   "album": "",
   "image": "https://lastfm.freetls.fastly.net/i/u/64s/c6f59c1e5e7240a4c0d427abd71f3dbb.jpg",
   "url": "https://www.last.fm/music/%E5%BE%90%E6%A2%93%E6%B7%B3/_/%E4%BD%A0%E7%9A%84%E8%B0%8E+(You+Lie)",
-  "published": "7 minutes ago",
+  "published": "9 minutes ago",
   "source": "https://www.last.fm/user/yy675908",
-  "source_type": "lastfm_profile"
+  "source_type": "lastfm_profile",
+  "warnings": [
+    "api: LASTFM_API_KEY is not configured; live status may be delayed"
+  ]
 }
