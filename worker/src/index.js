@@ -16,11 +16,16 @@ export default {
       format: 'json',
       limit: '1',
       extended: '1',
+      cb: Date.now().toString(),
     });
 
     try {
       const response = await fetch(`https://ws.audioscrobbler.com/2.0/?${params}`, {
-        headers: { 'User-Agent': 'yy675908-now-playing/1.0' },
+        headers: {
+          'User-Agent': 'yy675908-now-playing/1.1',
+          'Cache-Control': 'no-cache, no-store',
+          Pragma: 'no-cache',
+        },
         cf: { cacheTtl: 0, cacheEverything: false },
       });
       const payload = await response.json();
@@ -64,7 +69,9 @@ function json(data, status = 200) {
     status,
     headers: {
       'content-type': 'application/json; charset=utf-8',
-      'cache-control': 'no-store, max-age=0',
+      'cache-control': 'no-store, no-cache, must-revalidate, max-age=0',
+      pragma: 'no-cache',
+      expires: '0',
       'access-control-allow-origin': '*',
     },
   });
