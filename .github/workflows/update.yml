@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/update.yml'
       - 'config.json'
+      - 'trigger.txt'
   schedule:
     - cron: '*/5 * * * *'
   workflow_dispatch:
@@ -38,6 +39,8 @@ jobs:
           config = json.loads(Path('config.json').read_text(encoding='utf-8'))
           feed_url = config['feed_url']
           window_minutes = int(config.get('likely_playing_window_minutes', 15))
+          trigger_path = Path('trigger.txt')
+          requested_at = trigger_path.read_text(encoding='utf-8').strip() if trigger_path.exists() else ''
 
           def text_of(node, name):
               if node is None:
@@ -62,6 +65,7 @@ jobs:
               'status': 'error',
               'user': config.get('lastfm_user', ''),
               'source': feed_url,
+              'requested_at': requested_at,
               'updated_at': datetime.now(timezone.utc).isoformat(),
               'is_playing': False,
               'track': '',
