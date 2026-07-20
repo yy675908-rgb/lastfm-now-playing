@@ -8,8 +8,6 @@ on:
       - 'fetch_now_playing.py'
       - 'config.json'
       - 'trigger.txt'
-  schedule:
-    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 permissions:
