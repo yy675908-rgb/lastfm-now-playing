@@ -1,6 +1,7 @@
 import json
 import os
 import re
+import time
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -126,6 +127,7 @@ def request_bytes(url, accept):
             'Accept': accept,
             'Accept-Language': 'en-US,en;q=0.9',
             'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache',
         },
     )
     with urllib.request.urlopen(request, timeout=30) as response:
@@ -140,6 +142,7 @@ def fetch_api(user, api_key):
         'format': 'json',
         'limit': 1,
         'extended': 1,
+        '_ts': int(time.time()),
     })
     endpoint = f'https://ws.audioscrobbler.com/2.0/?{query}'
     payload = json.loads(request_bytes(endpoint, 'application/json').decode('utf-8'))
@@ -161,11 +164,12 @@ def fetch_api(user, api_key):
             image = value
             break
 
-    is_playing = item.get('@attr', {}).get('nowplaying') == 'true'
-    date_value = item.get('date', {}) if isinstance(item.get('date'), dict) else {}
+    attr = item.get('@attr', {}) if isinstance(item.get('@attr'), dict) else {}
+    date_value = item.get('date') if isinstance(item.get('date'), dict) else None
+    is_playing = str(attr.get('nowplaying', '')).lower() == 'true' or date_value is None
 
     return {
-        'source': endpoint,
+        'source': 'https://ws.audioscrobbler.com/2.0/',
         'source_type': 'lastfm_api',
         'is_playing': is_playing,
         'track': item.get('name', ''),
@@ -173,7 +177,7 @@ def fetch_api(user, api_key):
         'album': album_value.get('#text', '') if isinstance(album_value, dict) else str(album_value),
         'image': image,
         'url': item.get('url', ''),
-        'published': 'Scrobbling now' if is_playing else date_value.get('#text', ''),
+        'published': 'Scrobbling now' if is_playing else (date_value or {}).get('#text', ''),
     }
 
 
