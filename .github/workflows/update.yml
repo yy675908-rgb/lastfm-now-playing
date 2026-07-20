@@ -26,6 +26,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Fetch current Last.fm track
+        env:
+          LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
         run: python fetch_now_playing.py
 
       - name: Commit update
