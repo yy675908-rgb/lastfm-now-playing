@@ -1,4 +1,5 @@
 import json
+import os
 import re
 import urllib.parse
 import urllib.request
@@ -131,6 +132,51 @@ def request_bytes(url, accept):
         return response.read()
 
 
+def fetch_api(user, api_key):
+    query = urllib.parse.urlencode({
+        'method': 'user.getrecenttracks',
+        'user': user,
+        'api_key': api_key,
+        'format': 'json',
+        'limit': 1,
+        'extended': 1,
+    })
+    endpoint = f'https://ws.audioscrobbler.com/2.0/?{query}'
+    payload = json.loads(request_bytes(endpoint, 'application/json').decode('utf-8'))
+    if 'error' in payload:
+        raise RuntimeError(f"Last.fm API {payload.get('error')}: {payload.get('message', 'unknown error')}")
+
+    tracks = payload.get('recenttracks', {}).get('track', [])
+    if not tracks:
+        raise RuntimeError('Last.fm API returned no tracks')
+
+    item = tracks[0]
+    artist_value = item.get('artist', {})
+    album_value = item.get('album', {})
+    images = item.get('image', []) or []
+    image = ''
+    for candidate in reversed(images):
+        value = candidate.get('#text', '') if isinstance(candidate, dict) else ''
+        if value:
+            image = value
+            break
+
+    is_playing = item.get('@attr', {}).get('nowplaying') == 'true'
+    date_value = item.get('date', {}) if isinstance(item.get('date'), dict) else {}
+
+    return {
+        'source': endpoint,
+        'source_type': 'lastfm_api',
+        'is_playing': is_playing,
+        'track': item.get('name', ''),
+        'artist': artist_value.get('name') or artist_value.get('#text', '') if isinstance(artist_value, dict) else str(artist_value),
+        'album': album_value.get('#text', '') if isinstance(album_value, dict) else str(album_value),
+        'image': image,
+        'url': item.get('url', ''),
+        'published': 'Scrobbling now' if is_playing else date_value.get('#text', ''),
+    }
+
+
 def scrape_profile(user):
     profile_url = f"https://www.last.fm/user/{urllib.parse.quote(user)}"
     payload = request_bytes(profile_url, 'text/html,application/xhtml+xml')
@@ -210,16 +256,31 @@ def main():
     }
 
     errors = []
-    try:
-        result.update(scrape_profile(user))
-        result['status'] = 'ok'
-    except Exception as exc:
-        errors.append(f'profile: {type(exc).__name__}: {exc}')
+    api_key = os.getenv('LASTFM_API_KEY', '').strip()
+
+    if api_key:
+        try:
+            result.update(fetch_api(user, api_key))
+            result['status'] = 'ok'
+        except Exception as exc:
+            errors.append(f'api: {type(exc).__name__}: {exc}')
+
+    if result['status'] != 'ok':
+        try:
+            result.update(scrape_profile(user))
+            result['status'] = 'ok'
+        except Exception as exc:
+            errors.append(f'profile: {type(exc).__name__}: {exc}')
+
+    if result['status'] != 'ok':
         try:
             result.update(scrape_rss(config['feed_url']))
             result['status'] = 'ok'
-        except Exception as fallback_exc:
-            errors.append(f'rss: {type(fallback_exc).__name__}: {fallback_exc}')
+        except Exception as exc:
+            errors.append(f'rss: {type(exc).__name__}: {exc}')
+
+    if not api_key:
+        errors.append('api: LASTFM_API_KEY is not configured; live status may be delayed')
 
     if errors:
         result['warnings'] = errors
