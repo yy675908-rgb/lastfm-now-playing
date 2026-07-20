@@ -1,16 +1,14 @@
 {
   "status": "ok",
   "user": "yy675908",
-  "source": "https://lfm.xiffy.nl/yy675908",
-  "requested_at": "2026-07-20T18:00:00-07:00",
-  "updated_at": "2026-07-20T10:22:19.934175+00:00",
+  "updated_at": "2026-07-20T10:25:08.931231+00:00",
   "is_playing": false,
-  "track": "北方的雪飘不进江南的夜",
-  "artist": "庄东茹（豆芽鱼）",
-  "album": "北方的雪飘不进江南的夜",
-  "image": "",
-  "url": "https://www.last.fm/music/%E5%BA%84%E4%B8%9C%E8%8C%B9%EF%BC%88%E8%B1%86%E8%8A%BD%E9%B1%BC%EF%BC%89/_/%E5%8C%97%E6%96%B9%E7%9A%84%E9%9B%AA%E9%A3%98%E4%B8%8D%E8%BF%9B%E6%B1%9F%E5%8D%97%E7%9A%84%E5%A4%9C",
-  "published": "Mon, 20 Jul 2026 09:34:00 -0000",
-  "raw_title": "庄东茹（豆芽鱼） - 北方的雪飘不进江南的夜",
-  "description": "庄东茹（豆芽鱼）"
+  "track": "你的谎 (You Lie)",
+  "artist": "徐梓淳",
+  "album": "",
+  "image": "https://lastfm.freetls.fastly.net/i/u/64s/c6f59c1e5e7240a4c0d427abd71f3dbb.jpg",
+  "url": "https://www.last.fm/music/%E5%BE%90%E6%A2%93%E6%B7%B3/_/%E4%BD%A0%E7%9A%84%E8%B0%8E+(You+Lie)",
+  "published": "7 minutes ago",
+  "source": "https://www.last.fm/user/yy675908",
+  "source_type": "lastfm_profile"
 }
