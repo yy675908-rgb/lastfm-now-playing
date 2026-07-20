@@ -1,4 +1,4 @@
-name = "yy675908-now-playing"
+name = "lastfm-now-playing"
 main = "src/index.js"
 compatibility_date = "2026-07-20"
 workers_dev = true
