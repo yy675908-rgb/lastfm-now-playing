@@ -1,14 +1,14 @@
 {
   "status": "ok",
   "user": "yy675908",
-  "updated_at": "2026-07-20T10:32:35.553074+00:00",
-  "is_playing": false,
-  "track": "空空",
-  "artist": "陈粒",
-  "album": "贴近大地",
-  "image": "https://lastfm.freetls.fastly.net/i/u/300x300/3b4a70948c650fd61b886c83770084d0.jpg",
-  "url": "https://www.last.fm/music/%E9%99%88%E7%B2%92/_/%E7%A9%BA%E7%A9%BA",
-  "published": "20 Jul 2026, 10:23",
-  "source": "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=yy675908&api_key=3145cab326405127b34e49576c7ca791&format=json&limit=1&extended=1",
+  "updated_at": "2026-07-20T10:34:34.520284+00:00",
+  "is_playing": true,
+  "track": "明月天涯",
+  "artist": "五音Jw",
+  "album": "聆音",
+  "image": "https://lastfm.freetls.fastly.net/i/u/300x300/8d241a31fd29778ce96de0518a8c7265.png",
+  "url": "https://www.last.fm/music/%E4%BA%94%E9%9F%B3Jw/_/%E6%98%8E%E6%9C%88%E5%A4%A9%E6%B6%AF",
+  "published": "Scrobbling now",
+  "source": "https://ws.audioscrobbler.com/2.0/",
   "source_type": "lastfm_api"
 }
