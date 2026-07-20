@@ -8,30 +8,17 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: now-playing-update
+  cancel-in-progress: true
+
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Fetch feed
+
+      - name: Fetch and parse Last.fm RSS
         run: |
           python - <<'PY'
-          import json, urllib.request
-          import xml.etree.ElementTree as ET
-          url='https://lfm.xiffy.nl/yy675908'
-          try:
-              data=urllib.request.urlopen(url,timeout=20).read()
-              root=ET.fromstring(data)
-              text=' '.join(root.itertext())
-              result={'status':'ok','raw':text}
-          except Exception as e:
-              result={'status':'error','error':str(e)}
-          open('now-playing.json','w',encoding='utf-8').write(json.dumps(result,ensure_ascii=False,indent=2))
-          PY
-      - name: Commit update
-        run: |
-          git config user.name github-actions
-          git config user.email actions@github.com
-          git add now-playing.json
-          git diff --cached --quiet || git commit -m 'Update now playing'
-          git push
+          import json
